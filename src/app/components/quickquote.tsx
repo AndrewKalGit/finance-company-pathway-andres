@@ -111,7 +111,7 @@ export default function LoanWizard() {
 	};
 
 	return (
-		<div className='max-w-md mx-auto mt-28 bg-white p-6 rounded shadow-lg border border-gray-300 min-h-[500px] flex flex-col'>
+		<div className='max-w-md mx-auto bg-white p-6 rounded shadow-lg border border-gray-300 min-h-[500px] flex flex-col'>
 			<h2 className='text-2xl font-bold mb-2'>
 				Which Loan Option Best Fits Me
 			</h2>
