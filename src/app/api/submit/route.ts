@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Busboy, { FileInfo } from 'busboy';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import { Readable } from 'stream';
 
 export const config = {
   api: { bodyParser: false }, // Disable Next.js body parsing for file uploads
@@ -12,45 +13,60 @@ interface JotFormResponse {
   content?: unknown;
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') return res.status(405).end();
-
+export async function POST(req: Request) {
   const form = new FormData();
-  const bb = Busboy({ headers: req.headers });
+  const contentType = req.headers.get('content-type') || '';
+  const busboy = Busboy({ headers: { 'content-type': contentType } });
 
-  bb.on('file', (_fieldname: string, file: NodeJS.ReadableStream, info: FileInfo) => {
-    // Append each uploaded file under the field name JotForm expects
-    form.append('bankStatements', file, info.filename);
-  });
+  return new Promise<Response>((resolve) => {
+    busboy.on('file', (_fieldname: string, file: NodeJS.ReadableStream, info: FileInfo) => {
+      form.append('bankStatements', file, info.filename);
+    });
 
-  bb.on('field', (name: string, val: string) => {
-    // Append all text fields from your frontend
-    form.append(name, val);
-  });
+    busboy.on('field', (name: string, val: string) => {
+      form.append(name, val);
+    });
 
-  bb.on('finish', async () => {
-    try {
-      const jotformRes = await fetch(
-        `https://api.jotform.com/form/YOUR_FORM_ID/submissions?apiKey=${process.env.JOTFORM_API_KEY}`,
-        {
-          method: 'POST',
-          body: form,
+    busboy.on('finish', async () => {
+      try {
+        const jotformRes = await fetch(
+          `https://api.jotform.com/form/YOUR_FORM_ID/submissions?apiKey=${process.env.JOTFORM_API_KEY}`,
+          {
+            method: 'POST',
+            body: form,
+          }
+        );
+
+        const json = (await jotformRes.json()) as JotFormResponse;
+
+        if (json.responseCode === 200) {
+          resolve(new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+        } else {
+          console.error('JotForm response:', json);
+          resolve(new Response(JSON.stringify({ success: false }), { status: 500, headers: { 'Content-Type': 'application/json' } }));
         }
-      );
-
-      const json = (await jotformRes.json()) as JotFormResponse;
-
-      if (json.responseCode === 200) {
-        res.status(200).json({ success: true });
-      } else {
-        console.error('JotForm response:', json);
-        res.status(500).json({ success: false });
+      } catch (err) {
+        console.error('Submission error:', err);
+        resolve(new Response(JSON.stringify({ success: false }), { status: 500, headers: { 'Content-Type': 'application/json' } }));
       }
-    } catch (err) {
-      console.error('Submission error:', err);
-      res.status(500).json({ success: false });
-    }
-  });
+    });
 
-  req.pipe(bb);
+    // Convert the web ReadableStream to a Node.js Readable stream
+        if (req.body) {
+          const reader = req.body.getReader();
+          const nodeStream = new Readable({
+            async read() {
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                this.push(Buffer.from(value));
+              }
+              this.push(null);
+            }
+          });
+          nodeStream.pipe(busboy);
+        } else {
+          busboy.end();
+        }
+  });
 }
