@@ -79,7 +79,7 @@ export default function LoanApplication() {
 				}
 			}
 
-			const res = await fetch('/api/submit-loan', {
+			const res = await fetch('/api/submit/route.ts', {
 				method: 'POST',
 				body: data,
 			});
