@@ -1,6 +1,7 @@
 'use client';
 
 import Header from '../landing/header';
+import Footer from '../landing/footer';
 import BlogHero from './components/hero-sec-blog';
 import BookingSection from '../landing/booking';
 
@@ -50,19 +51,15 @@ export default function BlogHome() {
 					</nav>
 
 					{/* Set 2 */}
-					<div className='md:flex md:gap-4'>
+					{/* <div className='md:flex md:gap-4'>
 						<a
 							className='rounded-md bg-blue-500 px-5 py-3 min-w-52 font-semibold text-white flex justify-center items-center shadow-md hover:bg-blue-500/90'
 							href='/loan-application'
 							target='_blank'>
 							Join News Letter
 						</a>
-					</div>
+					</div> */}
 				</header>
-
-				{/* Hero */}
-				<BlogHero />
-
 				{/* Search Bar */}
 				<div className='flex justify-center mt-8 px-4'>
 					<input
@@ -92,8 +89,11 @@ export default function BlogHome() {
 						<p className='text-center text-gray-500'>No posts found.</p>
 					)}
 				</div>
+				{/* Hero */}
+				<BlogHero />
 			</div>
 			<BookingSection />
+			<Footer />
 		</main>
 	);
 }

@@ -16,7 +16,7 @@ const page = () => {
 				</Link>
 			</div>
 			<div className='mb-10' id='form'>
-				{/* <LoanApp /> */}
+				<LoanApp />
 			</div>
 			<div className='text-center text-gray-700 flex items-center justify-center gap-2 mb-4'>
 				<p className='text-sm'>

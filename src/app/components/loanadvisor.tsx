@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 
+emailjs.init('C_5WRFQJKU_L06k96');
+
 type StepData = {
 	revenueRange?: string;
 	creditScore?: string;
@@ -82,9 +84,9 @@ export default function LoanWizard() {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0) {
-			const serviceID = 'YOUR_SERVICE_ID';
-			const templateID = 'YOUR_TEMPLATE_ID';
-			const publicKey = 'YOUR_PUBLIC_KEY';
+			const serviceID = 'service_3366qia';
+			const templateID = 'template_2iu2vkt';
+			const publicKey = 'C_5WRFQJKU_L06k96';
 
 			emailjs
 				.send(
@@ -98,6 +100,7 @@ export default function LoanWizard() {
 						creditScore: answers.creditScore,
 						purpose: answers.purpose,
 						purposeDetail: answers.purposeDetail,
+						time: new Date().toLocaleString(),
 					},
 					publicKey
 				)

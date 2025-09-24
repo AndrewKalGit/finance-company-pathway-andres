@@ -15,10 +15,10 @@ function Home() {
 			<Header />
 			<Banner />
 			<Services />
-			<Eligibility />
-			<Process />
-			<Results />
-			<Reviews />
+			{/* <Eligibility /> */}
+			{/* <Process /> */}
+			{/* <Results /> */}
+			{/* <Reviews /> */}
 			<Booking />
 			<Footer />
 		</main>

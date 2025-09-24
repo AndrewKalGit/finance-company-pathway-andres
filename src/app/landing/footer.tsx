@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import logo from '../../../public/pathway-catalyst-logo.png';
+import Andres from '../../../public/andres.webp';
+import pathwayLogo from '../../../public/pathway-catalyst.webp';
 import linkedinLogo from '../../../public/linkedin.webp';
 import alignableLogo from '../../../public/alignable.png';
 
@@ -7,26 +8,68 @@ const footer = () => {
 	const year = new Date().getFullYear();
 
 	return (
-		<footer className='bg-gray-50'>
-			<div className='mx-auto max-w-5xl px-4 sm:px-6 lg:px-8'>
-				<div className='flex justify-center'>
-					<Image alt='logo' src={logo} />
+		<footer className='bg-gradient-to-tr from-white via-gray-50 to bg-teal-50'>
+			<div id='about'>
+				<h1 className='text-center text-4xl font-bold text-gray-900 sm:text-5xl mb-8'>
+					About Andres & Pathway Catalyst
+				</h1>
+				<div className='mx-auto max-w-5xl px-4 sm:px-6 lg:px-8'>
+					<div className='flex gap-10'>
+						<div>
+							<div className='flex justify-center'>
+								<Image
+									alt='Andres Lending Representative'
+									src={Andres}
+									className='w-96 rounded-md mb-4'
+								/>
+							</div>
+
+							<h2 className='text-center text-2xl font-bold text-gray-900 sm:text-3xl'>
+								Business Development Liaison
+							</h2>
+							<h3 className='text-center text-xl font-bold text-gray-800 sm:text-2xl mb-2'>
+								{' '}
+								Andres V.
+							</h3>
+							<p className='mx-auto max-w-md text-center leading-relaxed text-gray-500'>
+								Andres is committed to helping entrepreneurs and business owners
+								secure the funding they need to grow and succeed.
+							</p>
+						</div>
+						<div>
+							<div>
+								<div className='flex justify-center'>
+									<Image
+										alt='Pathway Catalyst Partners Logo'
+										src={pathwayLogo}
+										className='w-96 rounded-md mb-4 drop-shadow-2xl'
+									/>
+								</div>
+
+								<h2 className='text-center text-2xl font-bold text-gray-900 sm:text-3xl'>
+									About Pathway Catalyst
+								</h2>
+								<h3 className='text-center text-xl font-bold text-gray-800 sm:text-lg mb-2'>
+									Transforming small business lending Since 2015
+								</h3>
+								<p className='mx-auto max-w-md text-center leading-relaxed text-gray-500'>
+									We strive to be the trusted partner that navigates the
+									complexities of financial services, delivering exceptional
+									value and fostering long-term success for our clients.
+								</p>
+							</div>
+						</div>
+					</div>
 				</div>
-
-				<p className='mx-auto max-w-md text-center leading-relaxed text-gray-500'>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt
-					consequuntur amet culpa cum itaque neque.
-				</p>
-
 				<ul className='mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12'>
-					<li>
+					{/* <li>
 						<a
 							className='text-gray-700 transition hover:text-gray-700/75'
 							href='#about'>
 							{' '}
 							About{' '}
 						</a>
-					</li>
+					</li> */}
 
 					{/* <li>
 						<a
@@ -46,7 +89,7 @@ const footer = () => {
 						</a>
 					</li> */}
 
-					<li>
+					{/* <li>
 						<a
 							className='text-gray-700 transition hover:text-gray-700/75'
 							href='#services'>
@@ -62,7 +105,7 @@ const footer = () => {
 							{' '}
 							Testimonials{' '}
 						</a>
-					</li>
+					</li> */}
 					{/* 
 					<li>
 						<a
@@ -77,7 +120,7 @@ const footer = () => {
 				<ul className='mt-12 flex justify-center gap-6 md:gap-8'>
 					<li>
 						<a
-							href='#'
+							href='https://www.facebook.com/profile.php?id=61567568452956'
 							rel='noreferrer'
 							target='_blank'
 							className='text-gray-700 transition hover:text-gray-700/75'>
@@ -98,7 +141,7 @@ const footer = () => {
 
 					<li>
 						<a
-							href='#'
+							href='https://www.instagram.com/pathway_catalyst_partners/'
 							rel='noreferrer'
 							target='_blank'
 							className='text-gray-700 transition hover:text-gray-700/75'>
@@ -118,11 +161,11 @@ const footer = () => {
 					</li>
 					<li>
 						<a
-							href='#'
+							href='https://www.linkedin.com/company/pathway-catalyst-partners/'
 							rel='noreferrer'
 							target='_blank'
 							className='text-gray-700 transition hover:opacity-70'>
-							<span className='sr-only'>Facebook</span>
+							<span className='sr-only'>Linkedin</span>
 							<Image
 								alt='Linkedin'
 								src={linkedinLogo}
@@ -132,11 +175,11 @@ const footer = () => {
 					</li>
 					<li>
 						<a
-							href='#'
+							href='https://www.alignable.com/linden-nj/jya-carriers-llc?cyattr=f-n-&cyfid=d2a7995821774e4e8afc7543ceb7bc73&user=11767719'
 							rel='noreferrer'
 							target='_blank'
 							className='text-gray-700 transition hover:opacity-70'>
-							<span className='sr-only'>Facebook</span>
+							<span className='sr-only'>Alignable</span>
 							<Image
 								alt='alignable'
 								src={alignableLogo}
@@ -151,10 +194,14 @@ const footer = () => {
 					&copy; {year}. Pathway Catalyst All rights reserved.
 				</p>
 				<p className='text-sm text-gray-600'>
-					<a href='/privacy'>privacy policy</a>
+					<a href='/privacy' target='_blank'>
+						privacy policy
+					</a>
 				</p>
 				<p className='text-sm text-gray-600'>
-					<a href='/terms'>terms and conditions</a>
+					<a href='/terms' target='_blank'>
+						terms and conditions
+					</a>
 				</p>
 			</div>
 		</footer>
